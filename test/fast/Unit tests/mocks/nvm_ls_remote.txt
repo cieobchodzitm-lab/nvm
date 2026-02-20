@@ -686,7 +686,11 @@ v18.20.0 Hydrogen
 v18.20.1 Hydrogen
 v18.20.2 Hydrogen
 v18.20.3 Hydrogen
-v18.20.4 Hydrogen *
+v18.20.4 Hydrogen
+v18.20.5 Hydrogen
+v18.20.6 Hydrogen
+v18.20.7 Hydrogen
+v18.20.8 Hydrogen *
 v19.0.0
 v19.0.1
 v19.1.0
@@ -727,7 +731,18 @@ v20.15.0 Iron
 v20.15.1 Iron
 v20.16.0 Iron
 v20.17.0 Iron
-v20.18.0 Iron *
+v20.18.0 Iron
+v20.18.1 Iron
+v20.18.2 Iron
+v20.18.3 Iron
+v20.19.0 Iron
+v20.19.1 Iron
+v20.19.2 Iron
+v20.19.3 Iron
+v20.19.4 Iron
+v20.19.5 Iron
+v20.19.6 Iron
+v20.20.0 Iron *
 v21.0.0
 v21.1.0
 v21.2.0
@@ -754,6 +769,61 @@ v22.7.0
 v22.8.0
 v22.9.0
 v22.10.0
-v22.11.0 Jod *
+v22.11.0 Jod
+v22.12.0 Jod
+v22.13.0 Jod
+v22.13.1 Jod
+v22.14.0 Jod
+v22.15.0 Jod
+v22.15.1 Jod
+v22.16.0 Jod
+v22.17.0 Jod
+v22.17.1 Jod
+v22.18.0 Jod
+v22.19.0 Jod
+v22.20.0 Jod
+v22.21.0 Jod
+v22.21.1 Jod
+v22.22.0 Jod *
 v23.0.0
 v23.1.0
+v23.2.0
+v23.3.0
+v23.4.0
+v23.5.0
+v23.6.0
+v23.6.1
+v23.7.0
+v23.8.0
+v23.9.0
+v23.10.0
+v23.11.0
+v23.11.1
+v24.0.0
+v24.0.1
+v24.0.2
+v24.1.0
+v24.2.0
+v24.3.0
+v24.4.0
+v24.4.1
+v24.5.0
+v24.6.0
+v24.7.0
+v24.8.0
+v24.9.0
+v24.10.0
+v24.11.0 Krypton
+v24.11.1 Krypton
+v24.12.0 Krypton
+v24.13.0 Krypton
+v24.13.1 Krypton *
+v25.0.0
+v25.1.0
+v25.2.0
+v25.2.1
+v25.3.0
+v25.4.0
+v25.5.0
+v25.6.0
+v25.6.1
