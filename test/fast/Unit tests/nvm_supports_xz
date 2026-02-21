@@ -4,7 +4,7 @@ OLDPATH=$PATH
 TEST_PATH=../../xz-test
 
 cleanup() {
-  rm -rf $TEST_PATH/{xz,which,awk,rm,command}
+  rm -rf $TEST_PATH
   export PATH=$OLDPATH
 }
 die () { echo "$@" ; cleanup ; exit 1; }
