@@ -59,6 +59,7 @@
 - [Uninstalling / Removal](#uninstalling--removal)
   - [Manual Uninstall](#manual-uninstall)
 - [Docker For Development Environment](#docker-for-development-environment)
+- [OTLP Log Ingestion](#otlp-log-ingestion)
 - [Problems](#problems)
 - [macOS Troubleshooting](#macos-troubleshooting)
 - [WSL Troubleshooting](#wsl-troubleshooting)
@@ -997,6 +998,43 @@ For more information and documentation about docker, please refer to its officia
 
   - https://www.docker.com/
   - https://docs.docker.com/
+
+## OTLP Log Ingestion
+
+`nvm` includes a minimal [OpenTelemetry Protocol (OTLP)](https://opentelemetry.io/docs/specs/otlp/) HTTP log receiver (`server.mjs`) intended for local development and debugging. It listens on the standard OTLP HTTP port `4318`, bound to loopback only (`127.0.0.1`).
+
+### Endpoint
+
+| Method | Path       | Description                                        |
+|--------|------------|----------------------------------------------------|
+| POST   | `/v1/logs` | Accepts an OTLP JSON log payload, logs it to stdout, and returns `{"partialSuccess":{}}` |
+
+**Status codes returned:**
+
+- `200` — payload accepted
+- `400` — request body is not valid JSON
+- `413` — request body exceeds 10 MB
+- `415` — `Content-Type` is not `application/json`
+- `404` — route not found
+
+### Starting the server
+
+```sh
+node server.mjs &
+# OTLP logs endpoint listening on http://127.0.0.1:4318/v1/logs
+```
+
+### Sending logs
+
+A sample OTLP `resourceLogs` payload is provided in `logs.json`:
+
+```sh
+curl -X POST -H "Content-Type: application/json" -d @logs.json -i http://127.0.0.1:4318/v1/logs
+# HTTP/1.1 200 OK
+# {"partialSuccess":{}}
+```
+
+The `logs.json` file contains a single `INFO` log record for the `nvm` service with a `node.version` attribute.
 
 ## Problems
 
