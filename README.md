@@ -76,18 +76,18 @@
 
 **Example:**
 ```sh
-$ nvm use 16
-Now using node v16.9.1 (npm v7.21.1)
+$ nvm use 24
+Now using node v24.13.1 (npm v11.4.2)
 $ node -v
-v16.9.1
-$ nvm use 14
-Now using node v14.18.0 (npm v6.14.15)
+v24.13.1
+$ nvm use 22
+Now using node v22.14.0 (npm v10.9.2)
 $ node -v
-v14.18.0
-$ nvm install 12
-Now using node v12.22.6 (npm v6.14.5)
+v22.14.0
+$ nvm install 20
+Now using node v20.18.3 (npm v10.8.2)
 $ node -v
-v12.22.6
+v20.18.3
 ```
 
 Simple as that!
@@ -162,7 +162,7 @@ See https://github.com/nvm-sh/nvm/issues/3531.
 
 ```Dockerfile
 FROM ubuntu:latest
-ARG NODE_VERSION=20
+ARG NODE_VERSION=22
 
 # install curl
 RUN apt update && apt install curl -y
@@ -184,9 +184,9 @@ CMD ["/bin/bash"]
 
 ```
 
-This example defaults to installation of nodejs version 20.x.y. Optionally you can easily override the version with docker build args like:
+This example defaults to installation of nodejs version 22.x.y. Optionally you can easily override the version with docker build args like:
 ```
-docker build -t nvmimage --build-arg NODE_VERSION=19 .
+docker build -t nvmimage --build-arg NODE_VERSION=24 .
 ```
 
 After creation of the image you can start container interactively and run commands, for example:
@@ -197,18 +197,18 @@ root@0a6b5a237c14:/# nvm -v
 0.40.4
 
 root@0a6b5a237c14:/# node -v
-v19.9.0
+v24.13.1
 
 root@0a6b5a237c14:/# npm -v
-9.6.3
+11.4.2
 ```
 
 Noninteractive example:
 ```
 user@host:/tmp/test $ docker run --rm -it nvmimage node -v
-v19.9.0
+v24.13.1
 user@host:/tmp/test $ docker run --rm -it nvmimage npm -v
-9.6.3
+11.4.2
 ```
 
 #### Troubleshooting on Linux
@@ -380,13 +380,13 @@ nvm install node # "node" is an alias for the latest version
 To install a specific version of node:
 
 ```sh
-nvm install 14.7.0 # or 16.3.0, 12.22.1, etc
+nvm install 22.0.0 # or 24.0.0, 20.0.0, etc
 ```
 
 To set an alias:
 
 ```sh
-nvm alias my_alias v14.4.0
+nvm alias my_alias v22.0.0
 ```
 Make sure that your alias does not contain any spaces or slashes.
 
@@ -413,16 +413,16 @@ nvm run node --version
 Or, you can run any arbitrary command in a subshell with the desired version of node:
 
 ```sh
-nvm exec 4.2 node --version
+nvm exec 22 node --version
 ```
 
 You can also get the path to the executable to where it was installed:
 
 ```sh
-nvm which 12.22
+nvm which 22
 ```
 
-In place of a version pointer like "14.7" or "16.3" or "12.22.1", you can use the following special default aliases with `nvm install`, `nvm use`, `nvm run`, `nvm exec`, `nvm which`, etc:
+In place of a version pointer like "22.0" or "24.0" or "20.0.0", you can use the following special default aliases with `nvm install`, `nvm use`, `nvm run`, `nvm exec`, `nvm which`, etc:
 
   - `node`: this installs the latest version of [`node`](https://nodejs.org/en/)
   - `iojs`: this installs the latest version of [`io.js`](https://iojs.org/en/)
@@ -431,15 +431,15 @@ In place of a version pointer like "14.7" or "16.3" or "12.22.1", you can use th
 
 ### Long-term Support
 
-Node has a [schedule](https://github.com/nodejs/Release#release-schedule) for long-term support (LTS) You can reference LTS versions in aliases and `.nvmrc` files with the notation `lts/*` for the latest LTS, and `lts/argon` for LTS releases from the "argon" line, for example. In addition, the following commands support LTS arguments:
+Node has a [schedule](https://github.com/nodejs/Release#release-schedule) for long-term support (LTS). You can reference LTS versions in aliases and `.nvmrc` files with the notation `lts/*` for the latest LTS, and `lts/krypton` for LTS releases from the "krypton" line, for example. In addition, the following commands support LTS arguments:
 
-  - `nvm install --lts` / `nvm install --lts=argon` / `nvm install 'lts/*'` / `nvm install lts/argon`
-  - `nvm uninstall --lts` / `nvm uninstall --lts=argon` / `nvm uninstall 'lts/*'` / `nvm uninstall lts/argon`
-  - `nvm use --lts` / `nvm use --lts=argon` / `nvm use 'lts/*'` / `nvm use lts/argon`
-  - `nvm exec --lts` / `nvm exec --lts=argon` / `nvm exec 'lts/*'` / `nvm exec lts/argon`
-  - `nvm run --lts` / `nvm run --lts=argon` / `nvm run 'lts/*'` / `nvm run lts/argon`
-  - `nvm ls-remote --lts` / `nvm ls-remote --lts=argon` `nvm ls-remote 'lts/*'` / `nvm ls-remote lts/argon`
-  - `nvm version-remote --lts` / `nvm version-remote --lts=argon` / `nvm version-remote 'lts/*'` / `nvm version-remote lts/argon`
+  - `nvm install --lts` / `nvm install --lts=krypton` / `nvm install 'lts/*'` / `nvm install lts/krypton`
+  - `nvm uninstall --lts` / `nvm uninstall --lts=krypton` / `nvm uninstall 'lts/*'` / `nvm uninstall lts/krypton`
+  - `nvm use --lts` / `nvm use --lts=krypton` / `nvm use 'lts/*'` / `nvm use lts/krypton`
+  - `nvm exec --lts` / `nvm exec --lts=krypton` / `nvm exec 'lts/*'` / `nvm exec lts/krypton`
+  - `nvm run --lts` / `nvm run --lts=krypton` / `nvm run 'lts/*'` / `nvm run lts/krypton`
+  - `nvm ls-remote --lts` / `nvm ls-remote --lts=krypton` `nvm ls-remote 'lts/*'` / `nvm ls-remote lts/krypton`
+  - `nvm version-remote --lts` / `nvm version-remote --lts=krypton` / `nvm version-remote 'lts/*'` / `nvm version-remote lts/krypton`
 
 Any time your local copy of `nvm` connects to https://nodejs.org, it will re-create the appropriate local aliases for all available LTS lines. These aliases (stored under `$NVM_DIR/alias/lts`), are managed by `nvm`, and you should not modify, remove, or create these files - expect your changes to be undone, and expect meddling with these files to cause bugs that will likely not be supported.
 
@@ -462,7 +462,7 @@ This will first use "nvm version node" to identify the current version you're mi
 You can also install and migrate npm packages from specific versions of Node like this:
 
 ```sh
-nvm install --reinstall-packages-from=5 6
+nvm install --reinstall-packages-from=20 22
 nvm install --reinstall-packages-from=iojs v4.2
 ```
 
@@ -593,8 +593,8 @@ To set a default Node version to be used in any new shell, use the alias 'defaul
 
 ```sh
 nvm alias default node # this refers to the latest installed version of node
-nvm alias default 18 # this refers to the latest installed v18.x version of node
-nvm alias default 18.12  # this refers to the latest installed v18.12.x version of node
+nvm alias default 22 # this refers to the latest installed v22.x version of node
+nvm alias default 22.14  # this refers to the latest installed v22.14.x version of node
 ```
 
 ### Use a mirror of node binaries
@@ -604,7 +604,7 @@ To use a mirror of the node binaries, set `$NVM_NODEJS_ORG_MIRROR`:
 export NVM_NODEJS_ORG_MIRROR=https://nodejs.org/dist
 nvm install node
 
-NVM_NODEJS_ORG_MIRROR=https://nodejs.org/dist nvm install 4.2
+NVM_NODEJS_ORG_MIRROR=https://nodejs.org/dist nvm install 22
 ```
 
 To use a mirror of the io.js binaries, set `$NVM_IOJS_ORG_MIRROR`:
@@ -630,10 +630,10 @@ NVM_AUTH_HEADER="Bearer secret-token" nvm install node
 You can create a `.nvmrc` file containing a node version number (or any other string that `nvm` understands; see `nvm --help` for details) in the project root directory (or any parent directory).
 Afterwards, `nvm use`, `nvm install`, `nvm exec`, `nvm run`, and `nvm which` will use the version specified in the `.nvmrc` file if no version is supplied on the command line.
 
-For example, to make nvm default to the latest 5.9 release, the latest LTS version, or the latest node version for the current directory:
+For example, to make nvm default to the latest 22.x release, the latest LTS version, or the latest node version for the current directory:
 
 ```sh
-$ echo "5.9" > .nvmrc
+$ echo "22" > .nvmrc
 
 $ echo "lts/*" > .nvmrc # to default to the latest LTS version
 
@@ -646,21 +646,21 @@ Then when you run nvm use:
 
 ```sh
 $ nvm use
-Found '/path/to/project/.nvmrc' with version <5.9>
-Now using node v5.9.1 (npm v3.7.3)
+Found '/path/to/project/.nvmrc' with version <22>
+Now using node v22.14.0 (npm v10.9.2)
 ```
 
 Running nvm install will also switch over to the correct version, but if the correct node version isn't already installed, it will install it for you.
 
 ```sh
 $ nvm install
-Found '/path/to/project/.nvmrc' with version <5.9>
-Downloading and installing node v5.9.1...
-Downloading https://nodejs.org/dist/v5.9.1/node-v5.9.1-linux-x64.tar.xz...
+Found '/path/to/project/.nvmrc' with version <22>
+Downloading and installing node v22.14.0...
+Downloading https://nodejs.org/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz...
 #################################################################################### 100.0%
 Computing checksum with sha256sum
 Checksums matched!
-Now using node v5.9.1 (npm v3.7.3)
+Now using node v22.14.0 (npm v10.9.2)
 ```
 
 `nvm use` et. al. will traverse directory structure upwards from the current directory looking for the `.nvmrc` file. In other words, running `nvm use` et. al. in any subdirectory of a directory with an `.nvmrc` will result in that `.nvmrc` being utilized.
@@ -868,27 +868,27 @@ nvm alias:
 
 > `$ nvm alias` <kbd>Tab</kbd>
 ```sh
-default      iojs         lts/*        lts/argon    lts/boron    lts/carbon   lts/dubnium  lts/erbium   node         stable       unstable
+default      iojs         lts/*        lts/iron     lts/jod      lts/krypton  node         stable       unstable
 ```
 
 
 > `$ nvm alias my_alias` <kbd>Tab</kbd>
 ```sh
-v10.22.0       v12.18.3      v14.8.0
+v20.18.3       v22.14.0      v24.13.1
 ```
 
 nvm use:
 > `$ nvm use` <kbd>Tab</kbd>
 
 ```
-my_alias        default        v10.22.0       v12.18.3      v14.8.0
+my_alias        default        v20.18.3       v22.14.0      v24.13.1
 ```
 
 nvm uninstall:
 > `$ nvm uninstall` <kbd>Tab</kbd>
 
 ```
-my_alias        default        v10.22.0       v12.18.3      v14.8.0
+my_alias        default        v20.18.3       v22.14.0      v24.13.1
 ```
 
 ## Compatibility Issues
@@ -1018,7 +1018,7 @@ nvm install -s 0.8.6
 
 **nvm node version not found in vim shell**
 
-If you set node version to a version other than your system node version `nvm use 6.2.1` and open vim and run `:!node -v` you should see `v6.2.1` if you see your system version `v0.12.7`. You need to run:
+If you set node version to a version other than your system node version `nvm use 22.14.0` and open vim and run `:!node -v` you should see `v22.14.0` if you see your system version `v0.12.7`. You need to run:
 
 ```shell
 sudo chmod ugo-x /usr/libexec/path_helper
