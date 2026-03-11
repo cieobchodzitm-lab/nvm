@@ -11,6 +11,7 @@ test/bak
 test/**/test_output
 test/**/.nvmrc
 test/xz-test/
+test/fast/Unit tests/; die quoted-command-not-quoted
 
 node_modules/
 npm-debug.log
