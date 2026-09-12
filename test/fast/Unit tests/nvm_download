@@ -2,6 +2,7 @@
 
 cleanup () {
   unset -f die cleanup
+  rm -f "; die quoted-command-not-quoted"
   docker stop httpbin && docker rm httpbin
 }
 die () { echo "$@" ; cleanup ; exit 1; }
