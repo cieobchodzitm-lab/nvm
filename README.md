@@ -1017,6 +1017,25 @@ For more information and documentation about docker, please refer to its officia
 - `415` — `Content-Type` is not `application/json`
 - `404` — route not found
 
+**Error response body examples:**
+
+- `400` Bad Request (invalid JSON):
+  ```json
+  {"error":"Invalid JSON"}
+  ```
+- `413` Payload Too Large (body exceeds 10 MB):
+  ```json
+  {"error":"Payload Too Large"}
+  ```
+- `415` Unsupported Media Type (wrong `Content-Type`):
+  ```json
+  {"error":"Unsupported Media Type: expected application/json"}
+  ```
+- `404` Not Found (unknown route):
+  ```json
+  {"error":"Not Found"}
+  ```
+
 ### Starting the server
 
 ```sh
@@ -1034,7 +1053,117 @@ curl -X POST -H "Content-Type: application/json" -d @logs.json -i http://127.0.0
 # {"partialSuccess":{}}
 ```
 
-The `logs.json` file contains a single `INFO` log record for the `nvm` service with a `node.version` attribute.
+The `logs.json` file contains a single `INFO` log record for the `nvm` service with a `node.version` attribute:
+
+```json
+{
+  "resourceLogs": [
+    {
+      "resource": {
+        "attributes": [
+          { "key": "service.name", "value": { "stringValue": "nvm" } }
+        ]
+      },
+      "scopeLogs": [
+        {
+          "scope": { "name": "nvm-logger" },
+          "logRecords": [
+            {
+              "timeUnixNano": "1700000000000000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": { "stringValue": "nvm version switched" },
+              "attributes": [
+                { "key": "node.version", "value": { "stringValue": "v20.0.0" } }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Expected server output** when the payload is received:
+
+```
+Received logs: {
+  "resourceLogs": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "nvm"
+            }
+          }
+        ]
+      },
+      "scopeLogs": [
+        {
+          "scope": {
+            "name": "nvm-logger"
+          },
+          "logRecords": [
+            {
+              "timeUnixNano": "1700000000000000000",
+              "severityNumber": 9,
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "nvm version switched"
+              },
+              "attributes": [
+                {
+                  "key": "node.version",
+                  "value": {
+                    "stringValue": "v20.0.0"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Troubleshooting
+
+- **Port 4318 already in use**
+
+  ```
+  Error: listen EADDRINUSE: address already in use 127.0.0.1:4318
+  ```
+
+  Another process is occupying port 4318. Find and stop it, or kill the existing `server.mjs` process before restarting:
+
+  ```sh
+  lsof -ti tcp:4318 | xargs kill
+  node server.mjs &
+  ```
+
+- **Connection refused**
+
+  ```
+  curl: (7) Failed to connect to 127.0.0.1 port 4318 after 0 ms: Connection refused
+  ```
+
+  The server is not running. Start it first with `node server.mjs &`.
+
+- **Invalid JSON payload**
+
+  If you send a malformed body, the server responds with `400`:
+
+  ```sh
+  curl -X POST -H "Content-Type: application/json" -d 'not-json' http://127.0.0.1:4318/v1/logs
+  # {"error":"Invalid JSON"}
+  ```
+
+  Verify your payload is valid JSON before sending (e.g. `node -e "JSON.parse(require('fs').readFileSync('logs.json','utf8'))"`).
 
 ## Problems
 
